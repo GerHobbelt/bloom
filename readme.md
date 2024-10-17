@@ -32,7 +32,7 @@ For more information please visit: http://www.partow.net/programming/bloomfilter
 
 #include "bloom_filter.hpp"
 
-int main()
+int main(void)
 {
 
    bloom_parameters parameters;
