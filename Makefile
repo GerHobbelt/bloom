@@ -37,6 +37,9 @@ valgrind :
 			$$cmd; \
 		fi done;
 
+bloom_filter_example00: bloom_filter.hpp bloom_filter_example00.cpp
+	$(COMPILER) $(OPTIONS) bloom_filter_example00 bloom_filter_example00.cpp $(LINKER_OPT)
+
 clean:
 	rm -f core *.o *.bak *stackdump *#
 

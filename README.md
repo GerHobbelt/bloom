@@ -1,4 +1,5 @@
 ## Description
+
 **C++ Bloom Filter Library**, has the following capabilities:
 
 + Optimal parameter selection based on expected false positive rate.
@@ -9,8 +10,9 @@
 
 
 ## Compatible Compilers
+
 + GNU Compiler Collection (4.1+)
-+ Intel® C++ Compiler (9.x+)
++ IntelÂ® C++ Compiler (9.x+)
 + Clang/LLVM (1.1+)
 + PGI C++ (10.x+)
 + Microsoft Visual Studio C++ Compiler (8.1+)
@@ -20,6 +22,7 @@ For more information please visit: http://www.partow.net/programming/bloomfilter
 ---
 
 ## Simple Bloom Filter Example
+
 **Example's objectives:**
 + Instantiate and configure a Bloom filter
 + Add some strings and integers to the Bloom filter

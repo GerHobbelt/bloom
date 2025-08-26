@@ -719,6 +719,27 @@ private:
    std::vector<unsigned long long int> size_list;
 };
 
+/** A type safe implementation of @a bloom_filter.
+*
+* By use of a template it is guaranteed that only elements of type T can be inserted
+* and queried to the Bloom Filter. You lose the ability to insert different
+* elements but gain compiler warnings or errors when inserting elements of various
+* kinds into the filter.
+*/
+template <typename T>
+class BloomFilter {
+public:
+  BloomFilter() : bf_impl() {}
+  BloomFilter(const bloom_parameters& p) : bf_impl(p) {}
+  BloomFilter(const BloomFilter& filter) : bf_impl(filter.bf_impl) {}
+  inline void insert(const T& element) { bf_impl.insert<T>(element); }
+  inline bool contains(const T& element) const {
+    return bf_impl.contains<T>(element);
+  }
+private:
+  bloom_filter bf_impl;
+};
+
 #endif
 
 
