@@ -43,17 +43,22 @@
 
 #include "bloom_filter.hpp"
 
-bool load_word_list(int argc, char* argv[], std::vector<std::string>& word_list);
+static bool load_word_list(int argc, const char** argv, std::vector<std::string>& word_list);
 
 template <class T,
           class Allocator,
           template <class,class> class Container>
-bool read_file(const std::string& file_name, Container<T, Allocator>& c);
+static bool read_file(const std::string& file_name, Container<T, Allocator>& c);
 
-void generate_outliers(const std::vector<std::string>& word_list, std::deque<std::string>& outliers);
-void purify_outliers(const std::vector<std::string>& word_list,std::deque<std::string>& outliers);
+static void generate_outliers(const std::vector<std::string>& word_list, std::deque<std::string>& outliers);
+static void purify_outliers(const std::vector<std::string>& word_list,std::deque<std::string>& outliers);
 
-int main(int argc, char* argv[])
+#if defined(BUILD_MONOLITHIC)
+#define main bloom_filter_example_03_main
+#endif
+
+extern "C"
+int main(int argc, const char** argv)
 {
    std::vector<std::string> word_list;
    std::deque<std::string> outliers;
@@ -124,7 +129,7 @@ int main(int argc, char* argv[])
    return 0;
 }
 
-bool load_word_list(int argc, char* argv[], std::vector<std::string>& word_list)
+static bool load_word_list(int argc, const char** argv, std::vector<std::string>& word_list)
 {
    // Note: The word-lists can be obtained from:
    // https://github.com/ArashPartow/bloom
@@ -171,7 +176,7 @@ bool load_word_list(int argc, char* argv[], std::vector<std::string>& word_list)
 template <class T,
           class Allocator,
           template <class,class> class Container>
-bool read_file(const std::string& file_name, Container<T, Allocator>& c)
+static bool read_file(const std::string& file_name, Container<T, Allocator>& c)
 {
    std::ifstream stream(file_name.c_str());
 
@@ -191,14 +196,14 @@ bool read_file(const std::string& file_name, Container<T, Allocator>& c)
    return true;
 }
 
-std::string reverse(std::string str)
+static std::string reverse(std::string str)
 {
    // Not the most efficient way of doing this.
    std::reverse(str.begin(),str.end());
    return str;
 }
 
-void generate_outliers(const std::vector<std::string>& word_list, std::deque<std::string>& outliers)
+static void generate_outliers(const std::vector<std::string>& word_list, std::deque<std::string>& outliers)
 {
    std::cout << "Generating outliers..... ";
 
@@ -301,7 +306,7 @@ void generate_outliers(const std::vector<std::string>& word_list, std::deque<std
    std::cout << "Complete." << std::endl;
 }
 
-void purify_outliers(const std::vector<std::string>& word_list, std::deque<std::string>& outliers)
+static void purify_outliers(const std::vector<std::string>& word_list, std::deque<std::string>& outliers)
 {
    std::set<std::string> set1;
    std::set<std::string> set2;

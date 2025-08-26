@@ -13,7 +13,13 @@
 
 #include "bloom_filter.hpp"
 
-int main() {
+
+#if defined(BUILD_MONOLITHIC)
+#define main bloom_filter_example_00_main
+#endif
+
+extern "C"
+int main(void) {
 
    bloom_parameters parameters;
 

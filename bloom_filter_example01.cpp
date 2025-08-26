@@ -29,6 +29,11 @@
 
 #include "bloom_filter.hpp"
 
+#if defined(BUILD_MONOLITHIC)
+#define main bloom_filter_example_01_main
+#endif
+
+extern "C"
 int main(void)
 {
    bloom_parameters parameters;
